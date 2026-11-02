@@ -1,0 +1,12 @@
+File Name,Excel Sheet Row No,Issue Identified,How Solved,Comments
+films.xlsx,Header row 1,Column name misspelled as langauge.,Renamed to language in the cleaned CSV and DDL.,Improves schema clarity without changing data values.
+people.xlsx,4110,Corrupted replacement character and trailing space in Jordi Moll� .,Corrected to Jordi Mollà and trimmed whitespace.,Fixes an unexpected UTF-8 issue.
+people.xlsx,"83 rows, e.g., 62",Mixed date formats: some dates are text while most are Excel serial numbers.,Converted all birthdate/deathdate values to YYYY-MM-DD.,Required for PostgreSQL DATE import.
+reviews.xlsx,"19 rows, e.g., 56",film_id is NULL.,Deleted affected review rows.,film_id is a mandatory FK and cannot be inferred safely.
+reviews.xlsx,"2752, 4806",film_id 736 does not exist in films.id.,Deleted the orphan review row(s).,A missing film record cannot be fabricated.
+reviews.xlsx,4120,film_id 1641 does not exist in films.id.,Deleted the orphan review row(s).,A missing film record cannot be fabricated.
+reviews.xlsx,3090,film_id 5060 does not exist in films.id.,Deleted the orphan review row(s).,A missing film record cannot be fabricated.
+reviews.xlsx,All review rows with non-null imdb_score,imdb_score is stored as a floating value and may display binary precision artifacts in PostgreSQL/Python.,"Rounded to one decimal and stored as NUMERIC(3,1).",Preserves the original rating scale.
+roles.xlsx,2940-2943,film_id 736 does not exist in films.id.,Deleted four orphan role rows.,Prevents FK violation.
+roles.xlsx,3156-3159,film_id 790 does not exist in films.id.,Deleted four orphan role rows.,Prevents FK violation.
+roles.xlsx,76 rows total,Roles reference 19 film ids absent from films.xlsx.,Deleted all orphan role rows.,No invalid people_id values were found.

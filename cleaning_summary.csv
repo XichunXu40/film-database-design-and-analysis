@@ -1,0 +1,5 @@
+table,raw_rows,removed_rows,cleaned_rows,main_reason_for_removal
+films,4949,0,4949,No rows removed; header langauge renamed to language.
+people,8397,0,8397,No rows removed; name encoding and date formats standardised.
+reviews,4968,23,4945,Rows removed only when film_id was NULL or absent from films.id.
+roles,19791,76,19715,Rows removed only when film_id was absent from films.id.
